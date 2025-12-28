@@ -128,61 +128,58 @@ public class Application {
     }
 
     public static void OperationsCompte(Scanner keyboard, ArrayList<CompteBancaire> Comptes){
-        int choice = 0;
-        do {
-            System.out.println("Entrer le numéro de compte, pour effectuer une opération");
-            try {
-                int numeroDeCompte = keyboard.nextInt();
-                int id = FindAccountIndex(numeroDeCompte, Comptes);
+        
+        System.out.println("Entrer le numéro de compte, pour effectuer une opération");
+        try {
+            int numeroDeCompte = keyboard.nextInt();
+            int id = FindAccountIndex(numeroDeCompte, Comptes);
 
-                System.out.println("=========Opération Compte==============");
-                System.out.println("1. Retrait");
-                System.out.println("2. Dépot");
-                System.out.println("3. Transfert");
-                System.out.println("4. Quitter");
-                System.out.println("Choisi une operation à faire.");
-                int choix = keyboard.nextInt();
+            System.out.println("=========Opération Compte==============");
+            System.out.println("1. Retrait");
+            System.out.println("2. Dépot");
+            System.out.println("3. Transfert");
+            System.out.println("4. Quitter");
+            System.out.println("Choisi une operation à faire.");
+            int choix = keyboard.nextInt();
 
-                switch (choix) {
-                    case 1:
-                        System.out.println("Entrer le montant du retrait.");
-                        double retrait = keyboard.nextDouble();
-                        Comptes.get(id).RetraitArgent(retrait);
-                        System.out.println("Retrait avec succés. Nouveau solde est "+Comptes.get(id).getSolde());
-                        break;
-                    case 2:
-                        System.out.println("Entrer le montant du dépot");
-                        double depot = keyboard.nextDouble();
-                        Comptes.get(id).DepotArgent(depot);
-                        System.out.println("Dépot avec succés. Nouveau solde est "+Comptes.get(id).getSolde());
-                        break;
-                    case 3:
-                        System.out.println("Entrer le numero de compte du récipient");
-                        int recipient = keyboard.nextInt();
+            switch (choix) {
+                case 1:
+                    System.out.println("Entrer le montant du retrait.");
+                    double retrait = keyboard.nextDouble();
+                    Comptes.get(id).RetraitArgent(retrait);
+                    System.out.println("Retrait avec succés. Nouveau solde est "+Comptes.get(id).getSolde());
+                    break;
+                case 2:
+                    System.out.println("Entrer le montant du dépot");
+                    double depot = keyboard.nextDouble();
+                    Comptes.get(id).DepotArgent(depot);
+                    System.out.println("Dépot avec succés. Nouveau solde est "+Comptes.get(id).getSolde());
+                    break;
+                case 3:
+                    System.out.println("Entrer le numero de compte du récipient");
+                    int recipient = keyboard.nextInt();
 
-                        System.out.println("Entrer le montant.");
-                        double transfert = keyboard.nextDouble();
+                    System.out.println("Entrer le montant.");
+                    double transfert = keyboard.nextDouble();
 
-                        Comptes.get(id).TransfertArgent(FindAccount(recipient, Comptes), transfert);
+                    Comptes.get(id).TransfertArgent(FindAccount(recipient, Comptes), transfert);
 
-                        System.out.println("Transfert avec succés.");
-                        break;
-                    case 4:
-                        System.out.println("Bye");
-                        choice = 4;
-                        break;
-                }
-
-            } catch (InputMismatchException e) {
-                System.err.println("Entrer un numero de compte valide.");
-                keyboard.next();
-            } catch (CompteInexistantException e){
-                System.err.println(e.getMessage());
-            } catch (FondsInsuffisantsException e){
-                System.err.println(e.getMessage());
-            } catch (IllegalValueException e){
-                System.err.println(e.getMessage());
+                    System.out.println("Transfert avec succés.");
+                    break;
+                case 4:
+                    System.out.println("Bye");
+                    break;
             }
-        }while (choice != 4 );
+
+        } catch (InputMismatchException e) {
+            System.err.println("Entrer un numero de compte valide.");
+            keyboard.next();
+        } catch (CompteInexistantException e){
+            System.err.println(e.getMessage());
+        } catch (FondsInsuffisantsException e){
+            System.err.println(e.getMessage());
+        } catch (IllegalValueException e){
+            System.err.println(e.getMessage());
+        }
     }
 }
